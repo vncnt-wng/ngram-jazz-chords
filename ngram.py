@@ -53,6 +53,8 @@ class NGram:
         else:
             self.store[next] = 1
 
+    # def sample(self):
+
     def __str__(self):
         string = ""
         sorted_items = sorted(self.store.items(), key=lambda i: i[1], reverse=True)

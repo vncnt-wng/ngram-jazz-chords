@@ -39,16 +39,20 @@ def flatten_section(section: any) -> List[str]:
 def count_ngams_in_form(form: [str], ngram_store: NGramStore, n: int) -> None:
     # we want to count ngrams wrapping from the end back to the start, ignoring adjacent duplicates
     wrapped_form = []
-    for chord in form + form[:n]:
-        if len(wrapped_form) == 0 or wrapped_form != wrapped_form[-1]:
+    for chord in form:
+        if len(wrapped_form) == 0 or chord != wrapped_form[-1]:
             wrapped_form.append(chord)
+            if "/" in chord:
+                print(chord)
+
+    wrapped_form = wrapped_form + wrapped_form[:n]
 
     # circular queue for ngram window
     ngram_queue = form[:n]
     queue_pointer = 0
 
     # iterate over the length of the original form
-    for i in range(0, len(form)):
+    for i in range(0, len(wrapped_form) - n):
         ngram_string = "".join(ngram_queue[queue_pointer:]) + "".join(
             ngram_queue[0:queue_pointer]
         )
@@ -64,8 +68,6 @@ def count_ngams_in_form(form: [str], ngram_store: NGramStore, n: int) -> None:
 def count_ngrams() -> NGramStore:
     with open("JazzStandards.json", "r") as f:
         j = json.load(f)
-        print(len(j))
-        print(json.dumps(j[0], indent=2))
         n = 3
         ngram_store = NGramStore(n)
 
@@ -75,5 +77,8 @@ def count_ngrams() -> NGramStore:
             form = flatten_form(j[i])
             count_ngams_in_form(form, ngram_store, n)
 
-        print(ngram_store)
+        # print(ngram_store)
         return ngram_store
+
+
+count_ngrams()
