@@ -61,7 +61,7 @@ def get_chord_root(chord_string: str) -> str:
     # if is a slash chord
     # parts = chord_string.split("/")
     # if len(parts) > 1:
-    if len(chord_string) >= 2 and chord_string in ["b", "#"]:
+    if len(chord_string) >= 2 and chord_string[1] in ["b", "#"]:
         return chord_string[:2]
     return chord_string[:1]
 

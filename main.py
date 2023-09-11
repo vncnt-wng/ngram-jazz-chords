@@ -42,8 +42,8 @@ def count_ngams_in_form(form: [str], ngram_store: NGramStore, n: int) -> None:
     for chord in form:
         if len(wrapped_form) == 0 or chord != wrapped_form[-1]:
             wrapped_form.append(chord)
-            if "/" in chord:
-                print(chord)
+            # if "/" in chord:
+            #     print(chord)
 
     wrapped_form = wrapped_form + wrapped_form[:n]
 
@@ -81,4 +81,5 @@ def count_ngrams() -> NGramStore:
         return ngram_store
 
 
-count_ngrams()
+if __name__ == "__main__":
+    count_ngrams()

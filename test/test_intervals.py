@@ -13,6 +13,8 @@ def test_get_interval():
 
 
 def test_get_chord_root_simple():
+    assert intervals.get_chord_root("C") == "C"
+    assert intervals.get_chord_root("G#") == "G#"
     assert intervals.get_chord_root("Fbasjkghsjl") == "Fb"
 
 
