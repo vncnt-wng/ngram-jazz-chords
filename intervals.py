@@ -1,4 +1,5 @@
-from typing import Dict
+import re
+from typing import Dict, List
 
 note_name_values: Dict[str, int] = {
     "B#": 0,
@@ -24,6 +25,7 @@ note_name_values: Dict[str, int] = {
     "Cb": 11,
 }
 
+# index denotes the size of the interval in semitones
 interval_names = [
     "i",
     "bii",
@@ -39,11 +41,20 @@ interval_names = [
     "vii",
 ]
 
+# TODO provide the actual enharmonic note name for the given key
+# index denotes the value
+easy_note_names = ["C", "C#", "D", "Eb", "E", "F", "F#", "G", "G#", "A", "Bb", "B"]
 
-def get_interval(lower_note: str, upper_note: str):
+
+def get_interval(lower_note: str, upper_note: str) -> str:
     return interval_names[
         (note_name_values[upper_note] - note_name_values[lower_note] % 12)
     ]
+
+
+def get_note(interval: str, relative_root: str) -> str:
+    degree = interval_names.index(interval) + note_name_values[relative_root]
+    return easy_note_names[degree % 12]
 
 
 """
@@ -66,5 +77,32 @@ def get_chord_root(chord_string: str) -> str:
     return chord_string[:1]
 
 
-def get_relative_chord_name(chord_name, relative_root) -> str:
+def replace_note_match_with_interval(note_match: any, relative_root: str) -> str:
+    return "[" + get_interval(relative_root, note_match.group(0)) + "]"
+
+
+def get_relative_chord_name(chord_string: str, relative_root: str) -> str:
+    note_pattern = r"[A-G][b#]?"
+    return re.sub(
+        note_pattern,
+        lambda x: replace_note_match_with_interval(x, relative_root),
+        chord_string,
+    )
+
+
+def replace_interval_match_with_note(interval_match: any, relative_root: str):
+    interval = interval_match.group(0)[1:-1]
+    return get_note(interval, relative_root)
+
+
+def get_concrete_chord_name(relative_chord_string: str, relative_root: str) -> str:
+    interval_pattern = r"\[(.*?)\]"
+    return re.sub(
+        interval_pattern,
+        lambda x: replace_interval_match_with_note(x, relative_root),
+        relative_chord_string,
+    )
+
+
+def get_key_invariant_ngram(chord_names: List[str], relative_root: str) -> str:
     pass
