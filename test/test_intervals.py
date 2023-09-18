@@ -40,6 +40,12 @@ def test_get_relative_chord_name_slash():
     assert intervals.get_relative_chord_name("C#7/B", "A") == "[iii]7/[ii]"
 
 
+def test_get_key_invariant_ngram():
+    assert intervals.get_key_invariant_ngram(["C"]) == "[i]"
+    assert intervals.get_key_invariant_ngram(["C", "G", "D"]) == "[i][v][ii]"
+    assert intervals.get_key_invariant_ngram(["Cm7", "G7", "D6"]) == "[i]m7[v]7[ii]6"
+
+
 def test_get_concrete_chord_name_simple():
     assert intervals.get_concrete_chord_name("[i]", "C") == "C"
     assert intervals.get_concrete_chord_name("[bii]maj7", "C") == "C#maj7"

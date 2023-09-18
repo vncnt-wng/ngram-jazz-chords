@@ -104,5 +104,19 @@ def get_concrete_chord_name(relative_chord_string: str, relative_root: str) -> s
     )
 
 
-def get_key_invariant_ngram(chord_names: List[str], relative_root: str) -> str:
-    pass
+def get_key_invariant_ngram(chord_names: List[str], relative_root: str = None) -> str:
+    """
+    returns a concatenated string of chord_names, with note names switched to intervals
+    relative to the root of the first chord in chord_names
+
+
+    """
+    if relative_root == None:
+        relative_root = get_chord_root(chord_names[0])
+
+    ngram_string = ""
+    for chord_string in chord_names:
+        print(chord_string)
+        ngram_string += get_relative_chord_name(chord_string, relative_root)
+    print(ngram_string)
+    return ngram_string
