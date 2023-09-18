@@ -1,7 +1,12 @@
 import json
 from typing import List
 from ngram import NGram, NGramStore
-from intervals import get_key_invariant_ngram, get_relative_chord_name, get_chord_root
+from intervals import (
+    get_key_invariant_ngram,
+    get_relative_chord_name,
+    get_chord_root,
+    get_concrete_chord_name,
+)
 
 
 def split_chord_string(chord_string: str) -> List[str]:
@@ -87,10 +92,9 @@ def count_ngams_in_form(
 # def count_ngrams(n: int):
 
 
-def count_ngrams(key_invariant=False) -> NGramStore:
+def count_ngrams(key_invariant=False, n=2) -> NGramStore:
     with open("JazzStandards.json", "r") as f:
         j = json.load(f)
-        n = 2
         ngram_store = NGramStore(n)
 
         for i in range(0, len(j)):
@@ -103,5 +107,21 @@ def count_ngrams(key_invariant=False) -> NGramStore:
         return ngram_store
 
 
+def query_key_invariant_ngram(store: NGramStore, chord_names: List[str]):
+    if len(chord_names) != store.n:
+        raise ValueError("Length of chord_names does not match n of ngram store")
+    relative_root = get_chord_root(chord_names[0])
+    ngram_string = get_key_invariant_ngram(chord_names, relative_root)
+    ngram_counts = store.store[ngram_string]
+    for chord, count in ngram_counts.get_sorted_counts()[:50]:
+        print(
+            f"{get_concrete_chord_name(chord, relative_root)}: {round((count/ngram_counts.count) * 100, 1)}"
+        )
+
+
 if __name__ == "__main__":
-    count_ngrams(key_invariant=True)
+    store = count_ngrams(key_invariant=True, n=2)
+    query_key_invariant_ngram(store, ["Dm7", "G7"])
+    print()
+    store2 = count_ngrams(key_invariant=True, n=3)
+    query_key_invariant_ngram(store2, ["Cmaj7", "Ebmaj7", "Abmaj7"])

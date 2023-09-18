@@ -53,11 +53,12 @@ class NGram:
         else:
             self.store[next] = 1
 
-    # def sample(self):
+    def get_sorted_counts(self):
+        return sorted(self.store.items(), key=lambda i: i[1], reverse=True)
 
     def __str__(self):
         string = ""
-        sorted_items = sorted(self.store.items(), key=lambda i: i[1], reverse=True)
+        sorted_items = self.get_sorted_counts()
         string += f"ngram: {self.ngram}\n"
 
         for next, count in sorted_items[:30]:

@@ -116,7 +116,5 @@ def get_key_invariant_ngram(chord_names: List[str], relative_root: str = None) -
 
     ngram_string = ""
     for chord_string in chord_names:
-        print(chord_string)
         ngram_string += get_relative_chord_name(chord_string, relative_root)
-    print(ngram_string)
     return ngram_string
