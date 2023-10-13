@@ -1,0 +1,63 @@
+key Variant, n = 2
+
+[
+    "Dm7",
+    "G7",
+    "Gm7",
+    "C7",
+    "Dm",
+    "Dm/C",
+    "Bbmaj7",
+    "F/A",
+    "Gm7",
+    "C7",
+    "Cm7",
+    "F7",
+    "Bb7",
+    "Eb6",
+    "Db7",
+    "Eb6",
+    "Gm7",
+    "Gb07",
+    "Fm7",
+    "E07",
+    "Fm7",
+    "Bb7",
+]
+
+"Dm",
+"Dm/C",
+"Bbmaj7",
+"F/A",
+"Gm7",
+
+decending bassline let's go 
+
+
+key INvariant n = 3
+
+[
+    'Dm7',
+    'G7',
+    'C6',
+    'Gm7',
+    'F#m7b5',
+    'B7b9',
+    'Em7',
+    'A7',
+    'F#m7b5',
+    'B7b9',
+    'Em7',
+    'Em7/D',
+    'Cmaj7',
+    'Cmaj7/B',
+    'Am7',
+    'D7sus',
+    'D7b9',
+    'C07/G',
+    'Gmaj7',
+    'G7/F',
+    'Em7',
+    'Em7/D',
+    'C#m7b5'
+]
