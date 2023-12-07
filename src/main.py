@@ -3,7 +3,7 @@ import json
 from enum import Enum
 from random import random
 
-from src.ngram import NGram, NGramStore
+from ngram import NGram, NGramStore
 from intervals import (
     get_key_invariant_ngram,
     get_relative_chord_name,
@@ -72,15 +72,20 @@ def count_ngams_in_form(
                 ngram_chords = (
                     ngram_queue[queue_pointer:] + ngram_queue[0:queue_pointer]
                 )
+                print(ngram_chords)
                 relative_root = get_chord_root(ngram_chords[0])
                 next_chord = get_relative_chord_name(wrapped_form[i + n], relative_root)
-            except:
+                ngram_string = get_key_invariant_ngram(ngram_chords, relative_root)
+            except Exception as error:
+                print(error)
                 continue
         else:
             ngram_string = "".join(ngram_queue[queue_pointer:]) + "".join(
                 ngram_queue[0:queue_pointer]
             )
             next_chord = wrapped_form[i + n]
+        print(ngram_string)
+        print(next_chord)
         ngram_store.add_count(ngram_string, next_chord)
 
         ngram_queue[queue_pointer] = wrapped_form[i + n]
