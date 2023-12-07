@@ -3,7 +3,7 @@ import json
 from enum import Enum
 from random import random
 
-from ngram import NGram, NGramStore
+from src.ngram import NGram, NGramStore
 from intervals import (
     get_key_invariant_ngram,
     get_relative_chord_name,
@@ -164,8 +164,10 @@ class NgramSampler:
         # print(window)
         # print(self.chords)
 
-        # TODO how to handle key error? we aren't keeping a vocab so can't really do +1 sampling
+        # TODO how to handle key error? not keeping a vocab so can't really do +1 sampling
+
         ngram = self.ngram_store.store[window]
+        # counts is a sorted list of dictinary k,v pairs of chord: counts for the chord
         counts = ngram.get_sorted_counts()
         chord = ""
 
@@ -185,10 +187,11 @@ class NgramSampler:
                 else:
                     random_val -= chord_proportion
 
+            # If random val got to end of counts, return the last count
             if not chord_set:
-                # If random val got to end of counts, return the last count
                 chord = counts[-1][0]
 
+        
         if self.key_invariant_ngram:
             chord = get_concrete_chord_name(chord, relative_root=relative_root)
 
@@ -217,3 +220,4 @@ if __name__ == "__main__":
         print(sampler.sample_next())
 
     print(sampler.chords)
+

@@ -1,9 +1,9 @@
 import sys
 
-sys.path.append("../")
+sys.path.append("src/")
 
-import main
-import ngram
+import main as main
+import ngram as ngram
 
 
 def test_count_ngrams_unigram():
@@ -74,7 +74,8 @@ def test_count_ngrams_key_invariance():
     store = ngram.NGramStore(3)
     main.count_ngams_in_form(form, store, 3, key_invariant=True)
 
-    assert "[i]m7[iv]7[i]m7" in store.store
+    print(store)
+    assert "[i]ms7[iv]7[i]m7" in store.store
     assert "[i]7[v]m7[iv]6" in store.store
     assert "[i]m7[bvii]6[i]m7" in store.store
     assert "[i]6[ii]m7[v]7" in store.store

@@ -68,10 +68,11 @@ how to switch back from invariant to the chord names when given
 
 
 def get_chord_root(chord_string: str) -> str:
+    """
+    TODO - change behaviour for slash chords so 
+    """
+    # 
     # IGNORE SLASH CHORDS FOR NOW - this function should only be used to get a relative root to make the ngram invariant so reall
-    # if is a slash chord
-    # parts = chord_string.split("/")
-    # if len(parts) > 1:
     if len(chord_string) >= 2 and chord_string[1] in ["b", "#"]:
         return chord_string[:2]
     return chord_string[:1]
@@ -108,9 +109,8 @@ def get_key_invariant_ngram(chord_names: List[str], relative_root: str = None) -
     """
     returns a concatenated string of chord_names, with note names switched to intervals
     relative to the root of the first chord in chord_names
-
-
     """
+    
     if relative_root == None:
         relative_root = get_chord_root(chord_names[0])
 
@@ -118,3 +118,7 @@ def get_key_invariant_ngram(chord_names: List[str], relative_root: str = None) -
     for chord_string in chord_names:
         ngram_string += get_relative_chord_name(chord_string, relative_root)
     return ngram_string
+
+
+if __name__ == "__main__":
+    pass

@@ -1,8 +1,8 @@
 import sys
 
-sys.path.append("../")
+sys.path.append("src/")
 
-import intervals
+import intervals as intervals
 
 
 def test_get_interval():
@@ -54,7 +54,7 @@ def test_get_concrete_chord_name_simple():
 
 def test_get_concrete_chord_name_slash():
     """
-    Tests that when multiple note names in a chord are transformed to the interval
+    Tests that multiple note names in a chord are transformed to the interval
     """
     assert intervals.get_concrete_chord_name("[iii]/[i]", "A") == "C#/A"
     assert intervals.get_concrete_chord_name("[iii]7/[ii]", "A") == "C#7/B"
