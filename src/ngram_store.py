@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import Dict
+from typing import Dict, List, ItemsView
 
 
 class NGramStore:
@@ -12,7 +12,7 @@ class NGramStore:
         self.n = n
         self.store = dict()
 
-    def add_count(self, ngram: str, next: str):
+    def add_count(self, ngram: str, next: str) -> None:
         if ngram in self.store:
             self.store[ngram].add_count(next)
         else:
@@ -20,7 +20,7 @@ class NGramStore:
             new_ngram.add_count(next)
             self.store[ngram] = new_ngram
 
-    def __str__(self):
+    def __str__(self) -> str:
         string = ""
         sorted_items = sorted(
             self.store.items(), key=lambda i: i[1].count, reverse=True
@@ -46,17 +46,17 @@ class NGram:
         self.count = 0
         self.store = dict()
 
-    def add_count(self, next):
+    def add_count(self, next) -> None:
         self.count += 1
         if next in self.store:
             self.store[next] += 1
         else:
             self.store[next] = 1
 
-    def get_sorted_counts(self):
+    def get_sorted_counts(self) -> List[ItemsView[str, int]]:
         return sorted(self.store.items(), key=lambda i: i[1], reverse=True)
 
-    def __str__(self):
+    def __str__(self) -> str:
         string = ""
         sorted_items = self.get_sorted_counts()
         string += f"ngram: {self.ngram}\n"

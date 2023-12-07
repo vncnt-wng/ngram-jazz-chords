@@ -57,16 +57,6 @@ def get_note(interval: str, relative_root: str) -> str:
     return easy_note_names[degree % 12]
 
 
-"""
-ngrams and target chord relative to root of FIRST chord in ngram 
-
-replace all note names in place. Note names will always be capital letter, maybe with flat or sharp
-
-how to switch back from invariant to the chord names when given 
-
-"""
-
-
 def get_chord_root(chord_string: str) -> str:
     """
     TODO - change behaviour for slash chords so 
